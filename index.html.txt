@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Shaders RTX 2026 - Official Download</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            font-family: 'Arial', sans-serif; background-color: #1a1a1a; overflow-x: hidden;
+        }
+
+        /* --- ФЕЙКОВЫЙ САЙТ С РЕКЛАМОЙ --- */
+        #site-view { display: flex; flex-direction: column; align-items: center; padding: 20px; color: white; }
+        .ad-banner {
+            width: 100%; max-width: 800px; background: #ffcc00; color: black;
+            padding: 10px; font-weight: bold; text-align: center; margin-bottom: 15px;
+            pointer-events: none; border: 2px solid red;
+        }
+        .main-card {
+            background: #252525; padding: 20px; border-radius: 10px; 
+            border: 1px solid #444; width: 100%; max-width: 800px; text-align: center;
+        }
+        .dl-button {
+            background: #3fb52d; color: white; border: none; padding: 25px 60px;
+            font-size: 24px; font-weight: bold; border-radius: 5px; cursor: pointer;
+            margin: 20px 0; box-shadow: 0 0 20px rgba(63,181,45,0.5);
+        }
+
+        /* Блок фейковой рекламы казино */
+        .fake-ads-container {
+            margin-top: 30px; width: 100%; max-width: 800px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            pointer-events: none; opacity: 0.9;
+        }
+        .ad-box {
+            background: linear-gradient(45deg, #4b0082, #ff0000);
+            border: 2px solid gold; padding: 15px; border-radius: 5px;
+            font-size: 14px; text-transform: uppercase; line-height: 1.2;
+        }
+
+        /* --- ЗАГРУЗКА --- */
+        #loading-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; flex-direction: column; justify-content: center; align-items: center; color: white; }
+        .bar { width: 300px; height: 15px; background: #333; border-radius: 10px; margin-top: 20px; overflow: hidden; }
+        .fill { width: 0%; height: 100%; background: #3fb52d; transition: width 0.3s; }
+
+        /* --- BSOD --- */
+        #bsod-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0078d7; color: white; z-index: 500; padding: 50px; box-sizing: border-box; }
+
+        /* --- СКРИМЕР И ДИСКОТЕКА --- */
+        #screamer-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; background: transparent; }
+        #screamer-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .disco-mode { animation: strobe 0.05s infinite !important; }
+        @keyframes strobe {
+            0% { background-color: red; } 20% { background-color: lime; } 40% { background-color: blue; }
+            60% { background-color: yellow; } 80% { background-color: magenta; } 100% { background-color: cyan; }
+        }
+        .image-chaos { animation: shake 0.04s infinite, color-glitch 0.1s infinite; }
+        @keyframes shake { 0% { transform: scale(1.2) translate(15px, 15px); } 50% { transform: scale(1.2) translate(-15px, -15px); } }
+        @keyframes color-glitch { 0% { filter: hue-rotate(0deg) invert(0); } 50% { filter: hue-rotate(180deg) invert(1); } }
+    </style>
+</head>
+<body id="main-body">
+
+    <div id="site-view">
+        <div class="ad-banner">🔥 ВНИМАНИЕ! АКЦИЯ: +500% К ДЕПОЗИТУ В КАЗИНО "ВУЛКАН-МАЙН"! 🔥</div>
+        
+        <div class="main-card">
+            <h1>Minecraft RTX Shaders v4.2</h1>
+            <img src="https://image.pollinations.ai/prompt/Minecraft%20extreme%20realistic%20shaders%20landscape%204k" style="width: 100%; border-radius: 5px;">
+            <p>Статус: <span style="color: #3fb52d;">Проверено антивирусом (0 угроз)</span></p>
+            <button class="dl-button" onclick="startPrank()">СКАЧАТЬ БЕСПЛАТНО</button>
+        </div>
+
+        <div class="fake-ads-container">
+            <div class="ad-box">💰 ВЫИГРЫВАЙ ЗДЕСЬ! <br> <span style="font-size: 20px;">777 FREE SPINS</span></div>
+            <div class="ad-box" style="background: linear-gradient(45deg, #000, #333);">🍓 КЛУБНИЧКИ ЖДУТ ТЕБЯ <br> <span style="font-size: 10px;">РЕКЛАМА 18+</span></div>
+            <div class="ad-box" style="background: green;">✅ ТВОЙ ВЫИГРЫШ: <br> 500.000 РУБЛЕЙ</div>
+            <div class="ad-box" style="background: orange;">⚡️ СКАЧАТЬ КАЗИНО <br> НА АНДРОИД</div>
+        </div>
+    </div>
+
+    <div id="loading-view">
+        <h2 id="status">Загрузка файла...</h2>
+        <div class="bar"><div id="fill" class="fill"></div></div>
+    </div>
+
+    <div id="bsod-view">
+        <div style="font-size: 100px;">:(</div>
+        <p style="font-size: 24px;">На вашем ПК возникла проблема. Мы собираем сведения об ошибке... <br><br> 100% завершено</p>
+    </div>
+
+    <div id="screamer-view">
+        <img id="screamer-img" src="https://image.pollinations.ai/prompt/Horrifying%20realistic%20ghost%20face%20screaming%20huge%20dark%20eyes%20pale%20skin%20glitch" alt="!">
+    </div>
+
+    <audio id="audio" loop>
+        <source src="https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Screamer+Sound&filename=24/249337-023a1d47-640a-431d-910a-60580327f12e.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function startPrank() {
+            document.getElementById('site-view').style.display = 'none';
+            document.getElementById('loading-view').style.display = 'flex';
+            let fill = document.getElementById('fill');
+            setTimeout(() => { fill.style.width = '60%'; document.getElementById('status').innerText = 'Распаковка архива...'; }, 1000);
+            setTimeout(() => { 
+                document.getElementById('loading-view').style.display = 'none';
+                document.getElementById('bsod-view').style.display = 'block';
+                setTimeout(showHell, 3000); 
+            }, 3000);
+        }
+
+        function showHell() {
+            document.getElementById('bsod-view').style.display = 'none';
+            document.getElementById('screamer-view').style.display = 'block';
+            document.getElementById('main-body').classList.add('disco-mode');
+            document.getElementById('screamer-img').classList.add('image-chaos');
+
+            let a = document.getElementById('audio');
+            a.volume = 1.0;
+            a.play().catch(() => {
+                alert("CRITICAL SYSTEM ERROR! Click OK to repair disk C:");
+                a.play();
+            });
+
+            if(navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 1000]);
+
+            setTimeout(() => {
+                while(true) { alert("ВАША СИСТЕМА УНИЧТОЖЕНА!"); }
+            }, 500);
+        }
+    </script>
+</body>
+</html>

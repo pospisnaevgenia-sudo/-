@@ -3,89 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Shaders Pack 1.20.1+</title>
+    <title>Minecraft Ultra RTX Shaders 1.21 - Download</title>
     <style>
-        body {
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1a1a1b;
             color: #d7dadc;
-            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .container {
             text-align: center;
-            border: 1px solid #343536;
-            padding: 40px;
-            border-radius: 10px;
-            background-color: #272729;
         }
 
-        /* Плавное движение кнопки */
-        #runBtn {
-            padding: 15px 30px;
-            font-size: 18px;
+        h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #818384;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        #download-btn {
+            position: absolute;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             font-weight: bold;
             color: white;
-            background-color: #0079d3;
+            background-color: #ff4500;
             border: none;
-            border-radius: 5px;
+            border-radius: 999px;
             cursor: pointer;
-            position: absolute;
+            transition: all 0.2s ease-out;
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
+            white-space: nowrap;
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* Добавляем задержку 0.4 секунды, чтобы кнопка не исчезала мгновенно */
-            transition: all 0.4s ease; 
         }
 
-        h1 { color: #00ff00; }
+        #bsod {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0078d7;
+            color: white;
+            padding: 100px;
+            box-sizing: border-box;
+            z-index: 9999;
+            cursor: none;
+        }
+
+        .bsod-content {
+            max-width: 800px;
+        }
+
+        .sad-face {
+            font-size: 120px;
+            margin-bottom: 20px;
+        }
+
+        .bsod-text {
+            font-size: 24px;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Ultra Realistic Shaders</h1>
-        <p>Статус: Готов к загрузке</p>
-        <p>Нажми кнопку ниже, чтобы получить архив</p>
+    <div class="container" id="main-ui">
+        <h1>Ultra RTX Shaders 1.21</h1>
+        <p class="description">Лучшие шейдеры для Minecraft. Реалистичная вода, динамическое освещение и трассировка лучей. Версия: v.4.2.0-FINAL</p>
+        <button id="download-btn">СКАЧАТЬ .ZIP (42.5 MB)</button>
     </div>
 
-    <button id="runBtn">СКАЧАТЬ ШЕЙДЕРЫ</button>
+    <div id="bsod">
+        <div class="bsod-content">
+            <div class="sad-face">:(</div>
+            <div class="bsod-text">
+                На вашем ПК возникла проблема, и его необходимо перезагрузить. Мы лишь собираем некоторые сведения об ошибке, а затем будет выполнена перезагрузка.<br><br>
+                0% завершено<br><br>
+                <small style="font-size: 14px;">Для получения дополнительных сведений об этой проблеме и способах ее решения перейдите по адресу: https://www.windows.com/stopcode<br><br>
+                Код остановки: CRITICAL_PROCESS_DIED</small>
+            </div>
+        </div>
+    </div>
 
     <script>
-        const btn = document.getElementById('runBtn');
+        const btn = document.getElementById('download-btn');
+        const bsod = document.getElementById('bsod');
 
-        // УБЕГАЮЩАЯ КНОПКА (Медленная версия)
-        btn.onmouseover = function() {
-            // Кнопка начнет двигаться только через 100мс после наведения, 
-            // давая шанс по ней кликнуть
-            setTimeout(() => {
-                const x = Math.random() * (window.innerWidth - btn.clientWidth);
-                const y = Math.random() * (window.innerHeight - btn.clientHeight);
-                btn.style.left = x + 'px';
-                btn.style.top = y + 'px';
-                btn.style.transform = 'none';
-            }, 100); 
+        btn.onmouseover = () => {
+            const x = Math.random() * (window.innerWidth - btn.clientWidth);
+            const y = Math.random() * (window.innerHeight - btn.clientHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.transform = 'none';
         };
 
-        // ФИНАЛЬНОЕ СООБЩЕНИЕ
-        btn.onclick = function() {
-            alert("Поздравляю! Ты поймал кнопку! 🏆");
-            alert("На самом деле это просто безобидный пранк.");
-            alert("Никакого взлома нет, твой компьютер в полной безопасности.");
-            alert("Сделано специально для тебя. Хорошего дня! 😉");
-            
-            // Возвращаем кнопку на место после победы
-            btn.style.top = '60%';
-            btn.style.left = '50%';
-            btn.style.transform = 'translate(-50%, -50%)';
-            btn.innerText = "ПРОВЕРКА ПРОЙДЕНА";
-            btn.style.backgroundColor = "#28a745";
+        btn.onclick = () => {
+            const alerts = [
+                "Ошибка доступа: У вас нет прав администратора!",
+                "ВНИМАНИЕ: Обнаружена попытка внедрения в System32...",
+                "Критическая ошибка: Файловая система повреждена.",
+                "Идет форматирование диска C:// [||||||||||--] 80%",
+                "Все данные пользователя будут удалены через 3... 2... 1...",
+                "Спокойно! Это просто пранк. :)",
+                "Сейчас вы увидите магию..."
+            ];
+
+            alerts.forEach(msg => alert(msg));
+            startBSOD();
+        };
+
+        function startBSOD() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+            bsod.style.display = 'block';
+            document.body.style.backgroundColor = '#0078d7';
+        }
+
+        window.onbeforeunload = function() {
+            return "Вы уверены, что хотите прервать установку шейдеров?";
         };
     </script>
 </body>

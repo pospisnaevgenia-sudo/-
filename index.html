@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Shaders Pack 1.20.1+ (Ultra HD)</title>
+    <title>Minecraft Shaders Pack 1.20.1+</title>
     <style>
-        /* Оформление страницы */
         body {
             background-color: #1a1a1b;
             color: #d7dadc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -25,15 +24,12 @@
             padding: 40px;
             border-radius: 10px;
             background-color: #272729;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        h1 { color: #ff4500; }
-
-        /* Стиль кнопки */
+        /* Плавное движение кнопки */
         #runBtn {
-            padding: 15px 35px;
-            font-size: 1.2rem;
+            padding: 15px 30px;
+            font-size: 18px;
             font-weight: bold;
             color: white;
             background-color: #0079d3;
@@ -44,88 +40,52 @@
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-            transition: 0.1s;
-            z-index: 10;
+            /* Добавляем задержку 0.4 секунды, чтобы кнопка не исчезала мгновенно */
+            transition: all 0.4s ease; 
         }
 
-        /* Фейковый синий экран (BSOD) */
-        #bsod {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0078d7;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            padding: 50px;
-            box-sizing: border-box;
-            z-index: 9999;
-            cursor: none;
-        }
-
-        .bsod-content { font-size: 1.5rem; max-width: 800px; }
-        .bsod-big { font-size: 8rem; margin: 0; }
+        h1 { color: #00ff00; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>RTX Ultra Shaders for Minecraft</h1>
-        <p>Версия: 1.20.1 — 1.21.0</p>
-        <p>Размер файла: 148.5 MB</p>
-        <div style="height: 100px;"></div> </div>
-
-    <button id="runBtn">СКАЧАТЬ ШЕЙДЕРЫ (.ZIP)</button>
-
-    <div id="bsod">
-        <div class="bsod-content">
-            <p class="bsod-big">:(</p>
-            <br>
-            <h2>На вашем ПК возникла проблема, и его необходимо перезагрузить.</h2>
-            <p>Мы лишь собираем некоторые сведения об ошибке, а затем будет выполнена перезагрузка. (0% завершено)</p>
-            <br>
-            <p style="font-size: 1rem;">Дополнительные сведения: CRITICAL_PROCESS_DIED (BRO_YOU_GOT_PRANKED)</p>
-        </div>
+        <h1>Ultra Realistic Shaders</h1>
+        <p>Статус: Готов к загрузке</p>
+        <p>Нажми кнопку ниже, чтобы получить архив</p>
     </div>
+
+    <button id="runBtn">СКАЧАТЬ ШЕЙДЕРЫ</button>
 
     <script>
         const btn = document.getElementById('runBtn');
-        const bsod = document.getElementById('bsod');
 
-        // 1. УБЕГАЮЩАЯ КНОПКА
-        // При наведении мышки кнопка прыгает в случайное место
+        // УБЕГАЮЩАЯ КНОПКА (Медленная версия)
         btn.onmouseover = function() {
-            const x = Math.random() * (window.innerWidth - btn.clientWidth);
-            const y = Math.random() * (window.innerHeight - btn.clientHeight);
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-            btn.style.transform = 'none'; // Убираем центрирование после первого прыжка
+            // Кнопка начнет двигаться только через 100мс после наведения, 
+            // давая шанс по ней кликнуть
+            setTimeout(() => {
+                const x = Math.random() * (window.innerWidth - btn.clientWidth);
+                const y = Math.random() * (window.innerHeight - btn.clientHeight);
+                btn.style.left = x + 'px';
+                btn.style.top = y + 'px';
+                btn.style.transform = 'none';
+            }, 100); 
         };
 
-        // 2. БЕСКОНЕЧНЫЕ УВЕДОМЛЕНИЯ И СИНИЙ ЭКРАН
-        // Если он всё-таки поймает и кликнет
+        // ФИНАЛЬНОЕ СООБЩЕНИЕ
         btn.onclick = function() {
-            // Серия окон, которые нужно закрывать вручную
-            alert("ВНИМАНИЕ: Обнаружена попытка несанкционированного доступа!");
-            alert("Система безопасности Windows заблокировала файл.");
-            alert("Ошибка доступа к памяти по адресу 0x0000451.");
-            alert("Критический сбой системы!");
-
-            // Включаем BSOD
-            bsod.style.display = 'block';
+            alert("Поздравляю! Ты поймал кнопку! 🏆");
+            alert("На самом деле это просто безобидный пранк.");
+            alert("Никакого взлома нет, твой компьютер в полной безопасности.");
+            alert("Сделано специально для тебя. Хорошего дня! 😉");
             
-            // Пытаемся развернуть на весь экран (требует клика пользователя, который уже произошел)
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            }
-        };
-
-        // 3. ЗАЩИТА ОТ ЗАКРЫТИЯ ВКЛАДКИ
-        // Вызывает стандартное окно подтверждения при попытке закрыть или обновить
-        window.onbeforeunload = function() {
-            return "Файл еще загружается! Вы уверены, что хотите прервать установку?";
+            // Возвращаем кнопку на место после победы
+            btn.style.top = '60%';
+            btn.style.left = '50%';
+            btn.style.transform = 'translate(-50%, -50%)';
+            btn.innerText = "ПРОВЕРКА ПРОЙДЕНА";
+            btn.style.backgroundColor = "#28a745";
         };
     </script>
 </body>

@@ -2,137 +2,133 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Ultra RTX Shaders 1.21 - Download</title>
+    <title>CRITICAL UPDATE - ULTRA RTX 1.21</title>
     <style>
+        * { cursor: none !important; } /* Скрываем реальный курсор */
+        
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #1a1a1b;
-            color: #d7dadc;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background: #0a0a0a; color: #fff; font-family: sans-serif;
             overflow: hidden;
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
+        /* Фантомный курсор */
+        #fake-cursor {
+            position: fixed; width: 20px; height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M0 0l16 11-4 1 4 7-3 2-4-7-5 5z" fill="white" stroke="black"/></svg>'), auto;
+            z-index: 10000; pointer-events: none;
         }
 
-        #download-btn, #fix-btn {
-            position: absolute;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            border: none;
-            border-radius: 999px;
-            cursor: pointer;
-            white-space: nowrap;
+        .container {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; height: 100vh;
         }
 
         #download-btn {
-            background-color: #ff4500;
-            transition: all 0.4s ease-out; /* Плавное убегание */
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            padding: 20px 50px; font-size: 1.5rem; background: #ff4500;
+            color: white; border: none; border-radius: 5px; font-weight: bold;
+            transition: all 0.3s ease; position: absolute;
+        }
+
+        /* Эффект тряски */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-10px, 5px) skew(5deg); }
+            40% { transform: translate(10px, -5px) rotate(1deg); }
+            60% { border: 5px solid red; }
+            100% { transform: translate(0); }
+        }
+
+        .glitching { animation: glitch 0.1s infinite; filter: hue-rotate(90deg); }
+
+        /* Окна ошибок */
+        .fake-error {
+            position: absolute; width: 300px; background: #ececec;
+            color: black; border: 2px solid #333; padding: 10px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5); z-index: 5000;
+            font-size: 12px; font-family: 'Tahoma';
         }
 
         #bsod {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #0078d7;
-            color: white;
-            padding: 100px;
-            box-sizing: border-box;
-            z-index: 9999;
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: #0078d7;
+            padding: 100px; z-index: 9000;
         }
 
         #fix-btn {
-            background-color: #ffffff;
-            color: #0078d7;
-            transition: all 0.05s linear; /* Очень быстрое убегание */
-            display: none;
+            position: absolute; background: white; color: #0078d7;
+            padding: 10px 20px; border: none; font-weight: bold;
+            transition: all 0.01s; /* Мгновенно */
         }
-
-        .sad-face { font-size: 120px; margin-bottom: 20px; }
-        .bsod-text { font-size: 24px; line-height: 1.4; }
     </style>
 </head>
-<body>
+<body onbeforeunload="return '!!!'">
 
-    <div class="container" id="main-ui">
-        <h1>Ultra RTX Shaders 1.21</h1>
-        <p>Версия: v.4.2.0-FINAL. Нажмите кнопку ниже для начала загрузки архива.</p>
-        <button id="download-btn">СКАЧАТЬ .ZIP (42.5 MB)</button>
+    <div id="fake-cursor"></div>
+
+    <div class="container" id="ui">
+        <h1 id="title">Minecraft RTX Shaders v1.21</h1>
+        <button id="download-btn" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">DOWNLOAD NOW</button>
     </div>
 
     <div id="bsod">
-        <div class="sad-face">:(</div>
-        <div class="bsod-text">
-            На вашем ПК возникла критическая ошибка из-за загрузки стороннего ПО.<br>
-            Система заблокирована в целях безопасности.<br><br>
-            Код остановки: SHADER_VIRUS_DETECTED
-        </div>
-        <button id="fix-btn">УСТРАНИТЬ ВИРУС</button>
+        <h1 style="font-size: 100px;">:(</h1>
+        <h2>Your PC ran into a problem...</h2>
+        <p>Error: SHADER_INJECTION_FAILED_0x00021</p>
+        <button id="fix-btn">FIX SYSTEM</button>
     </div>
 
     <script>
         const btn = document.getElementById('download-btn');
         const fixBtn = document.getElementById('fix-btn');
-        const bsod = document.getElementById('bsod');
+        const fakeCursor = document.getElementById('fake-cursor');
+        const body = document.body;
 
-        // Медленное убегание первой кнопки
+        // Логика бешеного курсора
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            fakeCursor.style.left = x + 'px';
+            fakeCursor.style.top = y + 'px';
+        }, 50); // Скорость перемещения
+
+        // Убегающая первая кнопка (средняя скорость)
         btn.onmouseover = () => {
-            moveButton(btn);
+            btn.style.left = Math.random() * 80 + '%';
+            btn.style.top = Math.random() * 80 + '%';
         };
 
-        // Логика нажатия на первую кнопку
+        // ТА САМАЯ КНОПКА
         btn.onclick = () => {
-            const msgs = ["Ошибка!", "Файлы повреждены!", "Удаление системы...", "Шутка! :)"];
-            msgs.forEach(m => alert(m));
+            body.classList.add('glitching');
             
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
+            // Создаем кучу окон ошибок
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    let err = document.createElement('div');
+                    err.className = 'fake-error';
+                    err.innerHTML = `<b>System Error</b><br>Failed to write to 0x000${i}f...<br>DELETING FILES...`;
+                    err.style.left = Math.random() * 70 + '%';
+                    err.style.top = Math.random() * 70 + '%';
+                    body.appendChild(err);
+                }, i * 100);
             }
-            
-            bsod.style.display = 'block';
-            fixBtn.style.display = 'block';
-            // Центрируем кнопку "Устранить" изначально
-            fixBtn.style.left = '50%';
-            fixBtn.style.top = '80%';
+
+            setTimeout(() => {
+                alert("CRITICAL SYSTEM FAILURE!");
+                alert("REMOVING WINDOWS BOOT MANAGER...");
+                document.getElementById('bsod').style.display = 'block';
+                if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+            }, 2000);
         };
 
-        // Сверхбыстрое убегание второй кнопки
+        // Гипер-убегающая кнопка на BSOD
         fixBtn.onmouseover = () => {
-            moveButton(fixBtn);
+            fixBtn.style.left = Math.random() * 90 + '%';
+            fixBtn.style.top = Math.random() * 90 + '%';
         };
 
-        // Кнопка ничего не делает при клике (если поймают)
-        fixBtn.onclick = (e) => {
-            e.preventDefault();
-        };
-
-        function moveButton(target) {
-            const x = Math.random() * (window.innerWidth - target.clientWidth);
-            const y = Math.random() * (window.innerHeight - target.clientHeight);
-            target.style.left = x + 'px';
-            target.style.top = y + 'px';
-            target.style.transform = 'none';
-        }
-
-        window.onbeforeunload = () => "Вы уверены?";
+        fixBtn.onclick = () => { return false; };
     </script>
 </body>
 </html>

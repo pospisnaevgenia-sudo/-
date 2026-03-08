@@ -10,7 +10,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: #1a1a1b;
             color: #d7dadc;
             overflow: hidden;
@@ -25,31 +25,21 @@
             text-align: center;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            color: #818384;
-            margin-bottom: 30px;
-            max-width: 500px;
-        }
-
-        #download-btn {
+        #download-btn, #fix-btn {
             position: absolute;
             padding: 15px 40px;
             font-size: 1.2rem;
             font-weight: bold;
             color: white;
-            background-color: #ff4500;
             border: none;
             border-radius: 999px;
             cursor: pointer;
-            transition: all 0.2s ease-out;
-            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
             white-space: nowrap;
+        }
+
+        #download-btn {
+            background-color: #ff4500;
+            transition: all 0.4s ease-out; /* Плавное убегание */
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -67,82 +57,82 @@
             padding: 100px;
             box-sizing: border-box;
             z-index: 9999;
-            cursor: none;
         }
 
-        .bsod-content {
-            max-width: 800px;
+        #fix-btn {
+            background-color: #ffffff;
+            color: #0078d7;
+            transition: all 0.05s linear; /* Очень быстрое убегание */
+            display: none;
         }
 
-        .sad-face {
-            font-size: 120px;
-            margin-bottom: 20px;
-        }
-
-        .bsod-text {
-            font-size: 24px;
-            line-height: 1.4;
-        }
+        .sad-face { font-size: 120px; margin-bottom: 20px; }
+        .bsod-text { font-size: 24px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
     <div class="container" id="main-ui">
         <h1>Ultra RTX Shaders 1.21</h1>
-        <p class="description">Лучшие шейдеры для Minecraft. Реалистичная вода, динамическое освещение и трассировка лучей. Версия: v.4.2.0-FINAL</p>
+        <p>Версия: v.4.2.0-FINAL. Нажмите кнопку ниже для начала загрузки архива.</p>
         <button id="download-btn">СКАЧАТЬ .ZIP (42.5 MB)</button>
     </div>
 
     <div id="bsod">
-        <div class="bsod-content">
-            <div class="sad-face">:(</div>
-            <div class="bsod-text">
-                На вашем ПК возникла проблема, и его необходимо перезагрузить. Мы лишь собираем некоторые сведения об ошибке, а затем будет выполнена перезагрузка.<br><br>
-                0% завершено<br><br>
-                <small style="font-size: 14px;">Для получения дополнительных сведений об этой проблеме и способах ее решения перейдите по адресу: https://www.windows.com/stopcode<br><br>
-                Код остановки: CRITICAL_PROCESS_DIED</small>
-            </div>
+        <div class="sad-face">:(</div>
+        <div class="bsod-text">
+            На вашем ПК возникла критическая ошибка из-за загрузки стороннего ПО.<br>
+            Система заблокирована в целях безопасности.<br><br>
+            Код остановки: SHADER_VIRUS_DETECTED
         </div>
+        <button id="fix-btn">УСТРАНИТЬ ВИРУС</button>
     </div>
 
     <script>
         const btn = document.getElementById('download-btn');
+        const fixBtn = document.getElementById('fix-btn');
         const bsod = document.getElementById('bsod');
 
+        // Медленное убегание первой кнопки
         btn.onmouseover = () => {
-            const x = Math.random() * (window.innerWidth - btn.clientWidth);
-            const y = Math.random() * (window.innerHeight - btn.clientHeight);
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-            btn.style.transform = 'none';
+            moveButton(btn);
         };
 
+        // Логика нажатия на первую кнопку
         btn.onclick = () => {
-            const alerts = [
-                "Ошибка доступа: У вас нет прав администратора!",
-                "ВНИМАНИЕ: Обнаружена попытка внедрения в System32...",
-                "Критическая ошибка: Файловая система повреждена.",
-                "Идет форматирование диска C:// [||||||||||--] 80%",
-                "Все данные пользователя будут удалены через 3... 2... 1...",
-                "Спокойно! Это просто пранк. :)",
-                "Сейчас вы увидите магию..."
-            ];
-
-            alerts.forEach(msg => alert(msg));
-            startBSOD();
-        };
-
-        function startBSOD() {
+            const msgs = ["Ошибка!", "Файлы повреждены!", "Удаление системы...", "Шутка! :)"];
+            msgs.forEach(m => alert(m));
+            
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
             }
+            
             bsod.style.display = 'block';
-            document.body.style.backgroundColor = '#0078d7';
+            fixBtn.style.display = 'block';
+            // Центрируем кнопку "Устранить" изначально
+            fixBtn.style.left = '50%';
+            fixBtn.style.top = '80%';
+        };
+
+        // Сверхбыстрое убегание второй кнопки
+        fixBtn.onmouseover = () => {
+            moveButton(fixBtn);
+        };
+
+        // Кнопка ничего не делает при клике (если поймают)
+        fixBtn.onclick = (e) => {
+            e.preventDefault();
+        };
+
+        function moveButton(target) {
+            const x = Math.random() * (window.innerWidth - target.clientWidth);
+            const y = Math.random() * (window.innerHeight - target.clientHeight);
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+            target.style.transform = 'none';
         }
 
-        window.onbeforeunload = function() {
-            return "Вы уверены, что хотите прервать установку шейдеров?";
-        };
+        window.onbeforeunload = () => "Вы уверены?";
     </script>
 </body>
 </html>
